@@ -14,9 +14,9 @@
 # @param backup_dir Where to put the backups
 # @param manage_backup_dir Actually manage the directory or not
 class backup::config (
-  Stdlib::Absolutepath $backup_dir,
+  Stdlib::Absolutepath $backup_dir        = $::backups::params::backup_dir,
   Boolean              $manage_backup_dir = true,
-) {
+) inherits backup::params {
   if $manage_backup_dir {
     ensure_resource('file',$backup_dir,{'ensure' => 'directory'})
   }
