@@ -1,0 +1,49 @@
+{
+  "name": "dylanratcliffe-backup",
+  "version": "0.1.0",
+  "author": "dylanratcliffe",
+  "summary": "Backup and restore file that Puppet touches",
+  "license": "Apache-2.0",
+  "source": "https://github.com/dylanratcliffe/puppet-backup",
+  "project_page": "https://github.com/dylanratcliffe/puppet-backup",
+  "issues_url": "https://github.com/dylanratcliffe/puppet-backup/issues",
+  "dependencies": [
+    {
+      "name": "puppetlabs-stdlib",
+      "version_requirement": ">= 4.0.0"
+    },
+    {
+      "name": "puppetlabs-transition",
+      "version_requirement": ">= 0.1.0"
+    }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "8"
+      ]
+    },
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "7.0"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "16.04"
+      ]
+    },
+    {
+      "operatingsystem": "Windows",
+      "operatingsystemrelease": [
+        "2016"
+      ]
+    }
+  ],
+  "pdk-version": "0.2.0",
+  "template-url": "https://github.com/puppetlabs/pdk-module-template",
+  "template-ref": "heads/master-0-g19cd9af"
+}
