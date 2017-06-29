@@ -2,7 +2,7 @@
   "name": "dylanratcliffe-backup",
   "version": "0.1.0",
   "author": "dylanratcliffe",
-  "summary": "Backup and restore file that Puppet touches",
+  "summary": "Backs up files before changing them, even if you don't know how they get changed.",
   "license": "Apache-2.0",
   "source": "https://github.com/dylanratcliffe/puppet-backup",
   "project_page": "https://github.com/dylanratcliffe/puppet-backup",
@@ -19,28 +19,22 @@
   ],
   "operatingsystem_support": [
     {
-      "operatingsystem": "Debian",
-      "operatingsystemrelease": [
-        "8"
-      ]
+      "operatingsystem": "Debian"
     },
     {
-      "operatingsystem": "RedHat",
-      "operatingsystemrelease": [
-        "7.0"
-      ]
+      "operatingsystem": "RedHat"
     },
     {
-      "operatingsystem": "Ubuntu",
-      "operatingsystemrelease": [
-        "16.04"
-      ]
+      "operatingsystem": "Ubuntu"
     },
     {
-      "operatingsystem": "Windows",
-      "operatingsystemrelease": [
-        "2016"
-      ]
+      "operatingsystem": "Windows"
+    },
+    {
+      "operatingsystem": "Solaris"
+    },
+    {
+      "operatingsystem": "AIX"
     }
   ],
   "pdk-version": "0.2.0",
