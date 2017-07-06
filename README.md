@@ -18,11 +18,13 @@ This defined type also supports restoring files from a backup. Simply set `ensur
 
 `watch`: The resource or class to watch. If this resource/class is going to change, a backup will be created
 
-`backup_dir`: Where to put the backups
+`backup_dir`: Where to put the backups. This defaults to `relative`, meaning that the backup file will be put in the same location as the original file, but with the version appended.
 
 `file`: The file to back up
 
 `ensure`: `backed_up` or `restored`
+
+`version`: This allows you to specify a string to be assigned to the backup version. If this parameter is set, the file will be backed up once per version, the first time it is touched. This allows us to set the version to `pre_puppet` and maintain a backup of the state of the file before it was managed by Puppet. This state will not be overwritten. When restoring files the `version` parameter refers to which version to restore. If `version` is not specified, backup keeps the previous version of the file.
 
 ### Examples
 
@@ -42,26 +44,5 @@ backup { '/etc/ssh/sshd_config':
   ensure        => 'backed_up',
   backup_before => Class['::ssh'],
   backup_dir    => '/var/backups',
-}
-```
-
-## Classes
-
-`backup::config`
-
-Used to set global defaults for the `backup` type
-
-### Paramaters
-
-`backup_dir`: Where to put the backups
-
-`manage_backup_dir`: Actually manage the directory or not
-
-### Examples
-
-```puppet
-class { '::backup::config':
-  backup_dir        => 'C:/backups',
-  manage_backup_dir => true,
 }
 ```

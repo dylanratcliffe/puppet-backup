@@ -35,42 +35,59 @@
 # @param backup_dir Where to put the backups
 # @param file The file to back up
 # @param ensure `backed_up` or `restored`
+# @version An optional version to append
 define backup (
   Type[Catalogentry]             $watch,
-  Optional[Stdlib::Absolutepath] $backup_dir = undef,
+  Backup::Dir                    $backup_dir = 'relative',
   Stdlib::Absolutepath           $file       = $title,
   Enum['backed_up','restored']   $ensure     = 'backed_up',
+  Optional[String]               $version    = undef,
 ) {
-  include ::backup::config
-
-  # Set the local backup dir value based on if it was passed in
-  $_backup_dir = $backup_dir ? {
-    undef   => $::backup::config::backup_dir,
-    default => $backup_dir,
-  }
+  # Convert class reference to resource references
   $backup_before = $watch.get_resources
 
-  # Replace slashes in the file name with underscores to make it safe
-  $escaped_file = regsubst($file,/[\\\/]/, '_', 'G')
-  $backup_file_location = "${_backup_dir}/${escaped_file}"
+  if $backup_dir == 'relative' {
+    # If it is a relative directory we need to change the way some things work
+    $_backup_dir = $file.dirname
+    $backup_file_location = "${_backup_dir}/${file.basename}"
+  } else {
+    $_backup_dir = $backup_dir
+
+    # Replace slashes in the file name with underscores to make it safe
+    $escaped_file = regsubst($file,/[\\\/]/, '_', 'G')
+    $backup_file_location = "${_backup_dir}/${escaped_file}"
+  }
+
+  # If we are specifying a version then we don't want to replace those versions
+  # once they have been created. This requires different parameters
+  if $version {
+    $replace     = false
+    $backup_path = "${backup_file_location}_${version}"
+  } else {
+    $replace     = true
+    $backup_path = "${backup_file_location}_previous"
+  }
 
   if $ensure == 'backed_up' {
-    file { $backup_file_location:
+    file { 'backup_file':
       ensure => file,
-      path   => $backup_file_location,
+      path   => "${backup_file_location}_previous",
     }
 
     transition { "backup ${file}":
-      resource   => File[$backup_file_location],
+      resource   => File['backup_file'],
       attributes => {
-        source => $file,
+        source             => $file,
+        source_permissions => 'use',
+        replace            => $replace,
+        path               => $backup_path,
       },
       prior_to   => $backup_before,
     }
   } elsif $ensure == 'restored' {
     file { $file:
       ensure => file,
-      source => $backup_file_location,
+      source => $backup_path,
     }
   }
 }
