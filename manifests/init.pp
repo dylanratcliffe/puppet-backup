@@ -77,7 +77,7 @@ define backup (
     transition { "backup ${file}":
       resource   => File['backup_file'],
       attributes => {
-        source             => $file,
+        source             => [$file,'puppet:///modules/backup/blank'],
         source_permissions => 'use',
         replace            => $replace,
         path               => $backup_path,
