@@ -1,6 +1,6 @@
 {
   "name": "dylanratcliffe-backup",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "author": "dylanratcliffe",
   "summary": "Backs up files before changing them, even if you don't know how they get changed.",
   "license": "Apache-2.0",
