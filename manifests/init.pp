@@ -69,13 +69,13 @@ define backup (
   }
 
   if $ensure == 'backed_up' {
-    file { 'backup_file':
+    file { "${file} backup":
       ensure => file,
       path   => "${backup_file_location}_previous",
     }
 
     transition { "backup ${file}":
-      resource   => File['backup_file'],
+      resource   => File["${file} backup"],
       attributes => {
         source             => [$file,'puppet:///modules/backup/blank'],
         source_permissions => 'use',
