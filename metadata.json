@@ -37,6 +37,12 @@
       "operatingsystem": "AIX"
     }
   ],
+  "tags": [
+    "backup",
+    "rollout",
+    "transition",
+    "file backup"
+  ],
   "pdk-version": "0.2.0",
   "template-url": "https://github.com/puppetlabs/pdk-module-template",
   "template-ref": "heads/master-0-g19cd9af"
