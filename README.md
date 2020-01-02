@@ -10,9 +10,9 @@ This module allows you to ensure that Puppet backs up critical files before it t
 
 This defined type causes puppet to back up a file before it changes it. This functionality is different to that of the Filebucket in that it can back up files regardless of the type of resource that is changing them. Filebucket on the other hand only works with `file` resources. The functionality that this provides is implemented by the `puppetlabs/transition` module which allows puppet to modify the state of one resource before it goes to change another.
 
-In this case is creates a backup if a given file, before changing the `$watch` resource or class.
+In this case is creates a backup of a given file, before changing the `$watch` resource or class.
 
-This defined type also supports restoring files from a backup. Simply set `ensure` to `restored` and the file will copied from the backup directory. Please not that this may cause duplicate declaration or loops where Puppet restored the file then changes it again. You will likely need to comment out the class that caused the erroneous change to get this to work properly.
+This defined type also supports restoring files from a backup. Simply set `ensure` to `restored` and the file will copied from the backup directory. Please note that this may cause duplicate declaration or loops where Puppet restored the file then changes it again. You will likely need to comment out the class that caused the erroneous change to get this to work properly.
 
 ### Parameters
 
